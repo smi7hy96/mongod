@@ -9,8 +9,14 @@ sudo apt-get install -y mongodb-org=3.2.20 mongodb-org-server=3.2.20 mongodb-org
 
 sudo service mongod start
 sudo systemctl enable mongod.service
-
 sudo sed -i "s,\\(^[[:blank:]]*bindIp:\\) .*,\\1 0.0.0.0," /etc/mongod.conf
+
+
 
 sudo service mongod restart
 sudo systemctl enable mongod.service
+
+doc=$(cat << 'eof' >> /home/vagrant/.bashrc
+mongo 192.168.10.150:27017/posts --shell --eval 'db.stats()'
+eof
+)
